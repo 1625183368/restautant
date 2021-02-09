@@ -1,7 +1,7 @@
 package com.itmao.restaurant.entities;
 
 
-public class Drink {
+public class Drink extends R_Type {
 
   private long drinkId;
   private String drinkName;

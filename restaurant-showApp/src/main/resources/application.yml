@@ -1,0 +1,17 @@
+server:
+  port: 80
+spring:
+  application:
+    name: cloud-show-service
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: show80
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+feign:
+  hystrix:
+    enabled: true

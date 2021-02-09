@@ -11,6 +11,8 @@
     <modules>
         <module>restaurant-commons</module>
         <module>restaurant-showindex</module>
+        <module>restaurant-eureka-server7001</module>
+        <module>restaurant-showApp</module>
     </modules>
 
     <properties>

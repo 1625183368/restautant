@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
+
 
 import java.util.List;
 
@@ -23,23 +23,24 @@ public class ShowIndexServiceImpl implements ShowIndexService {
     private ShowIndexMapper showIndexMapper;
 
     @Autowired
-    @Qualifier("MyRedis")
+    @Qualifier("IRedis")
     private RedisTemplate redisTemplate;
 
     @Override
     public CommonResult showindex() {
-        List<Staple> data = (List<Staple>) redisTemplate.opsForValue().get(stapleContants.STAPLE_LIST_KEY);
-        if(CollectionUtils.isEmpty(data)) {
-            List<Staple> staples = null;
-            staples = showIndexMapper.getStaples();
-            if (!CollectionUtils.isEmpty(staples)) {
-                redisTemplate.opsForValue().set(stapleContants.STAPLE_LIST_KEY,staples);//三十天过期
-                String dbdata = JsonUtils.objectToJson(staples);
+        List<Staple> Cachedata = (List<Staple>) redisTemplate.opsForValue().get(stapleContants.STAPLE_LIST_KEY);
+        if(CollectionUtils.isEmpty(Cachedata)) {
+            List<Staple> dbdata = null;
+            dbdata = showIndexMapper.getStaples();
+            if (!CollectionUtils.isEmpty(dbdata)) {
+
+                redisTemplate.opsForValue().set(stapleContants.STAPLE_LIST_KEY,dbdata);//三十天过期
+//                String dbdata = JsonUtils.objectToJson(staples);
                 return new CommonResult(200, "成功(数据库数据)", dbdata);
             }
-            return new CommonResult(400, "没有数据");
+            return new CommonResult(500, "没有数据");
         }
-        String Cachedata = JsonUtils.objectToJson(data);
+//        String Cachedata = JsonUtils.objectToJson(data);
         return new CommonResult(200,"成功(缓存数据)",Cachedata);
     }
 }

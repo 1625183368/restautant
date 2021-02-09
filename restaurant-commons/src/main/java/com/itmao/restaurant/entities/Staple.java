@@ -1,7 +1,7 @@
 package com.itmao.restaurant.entities;
 
 
-public class Staple {
+public class Staple extends R_Type {
 
   private long stapleId;
   private String stapleName;

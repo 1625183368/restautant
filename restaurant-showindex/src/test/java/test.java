@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = ShowIndex8001.class)
 public class test {
     @Autowired
-    @Qualifier("MyRedis")
+    @Qualifier("IRedis")
     private RedisTemplate redisTemplate;
     @Test
     public void testindex(){

@@ -16,7 +16,7 @@ public class ShowIndexController {
     @Autowired
     private ShowIndexService showIndexService;
 
-    @RequestMapping(value = "/showindex/index")
+    @RequestMapping(value = "/restaurant/showindex")
     public CommonResult showindex(){
         return showIndexService.showindex();
     }
